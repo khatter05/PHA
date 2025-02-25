@@ -1,0 +1,117 @@
+51:  get_ltp(stockname)     
+    -> :61  get_ltp('NIFTY INDEX')
+
+91:  send_message1(msg)
+    ->  :109  threading.Thread(target=send_message1, args=(msg,))
+
+105:  send_message(msg)
+    ->  :112
+
+124:  load_users_config():
+    =>  (async) trigger_webhook_async(event_name):
+        ->  :198
+
+# Async function to trigger webhook for a single user
+161:  (async) trigger_webhook_for_user(session, user_name, config, event_name):
+    =>  (async) trigger_webhook_async(event_name):
+        ->  :209  task = trigger_webhook_for_user(session, user_name, config, event_name)
+
+# Main webhook trigger function using asyncio
+197:  (async) trigger_webhook_async(event_name):
+    =>  trigger_webhook(event_name):
+        ->  :225  trigger_webhook_async(event_name)
+
+# Modified trigger_webhook function that uses asyncio
+221:  trigger_webhook(event_name):
+    =>  trigger_b(h)
+        ->  :237  trigger_webhook(f"{h}_Buy")
+    =>  trigger_s(h)
+        ->  :245  trigger_webhook(f"{h}_Exit")
+
+# Modified trigger functions to handle errors gracefully
+234:  trigger_b(h):
+    =>  check_for_trigger_and_place_order
+        ->  :716  trigger_b(option_type)
+242:  trigger_s(h):
+    =>  monitor_positions():
+        ->  :450  trigger_s(option_type)
+        ->  :459  trigger_s(option_type)
+    ->  :782  trigger_s(pe )
+    ->  :783  trigger_s(ce)
+---------------------------------------------------
+
+->  monitor_positions():  ||||  check_for_trigger_and_place_order()
+    ->  trigger_s(h) || trigger_b(h):
+        ->  trigger_webhook(event_name)::
+            ->  (async) trigger_webhook_async(event_name):
+                ->  load_users_config():
+                ->  (async) trigger_webhook_for_user(session, user_name, config, event_name):
+
+---------------------------------------------------
+
+268:  event_handler_feed_update(tick_data):
+    ->  :297  api.start_websocket()
+
+286:  event_handler_order_update(tick_data):
+    ->  :297  api.start_websocket()
+
+289:  open_callback():
+    ->  :297  api.start_websocket()
+
+324:  get_ce_pe_values(premium, option):
+    ->  :474  :603  ce_strike=get_ce_pe_values(nearest_value,"CE")
+    ->  :475  :604  pe_strike=get_ce_pe_values(nearest_value,"PE")
+    |=>  unextract():
+        ->  :603  get_ce_pe_values(nearest_value,"CE")
+        ->  :604  get_ce_pe_values(nearest_value,"PE")
+
+357:  get_time_series(exchange, token, days, interval):
+    |=>  dt_update(stock):
+        ->  :372  df = get_time_series('NFO', token, 4, 1)
+
+368:  dt_update(stock):
+    |=>  check_buy_condition(x, token, z):
+        ->  :510 df1 = dt_update(x)
+    |=>  check_tanget_slope_negative(x):
+        ->  :565  df1 = dt_update(x)
+
+391:  place_buy_order(tradingsymbol, qty):
+    |=>  check_for_trigger_and_place_order():
+        ->  :707  order_response = place_buy_order(symbolname, 75)
+
+406:  place_target_or_sl_order(tradingsymbol, qty):
+    |=>  monitor_positions():
+        ->  :449  place_target_or_sl_order(position['symbolname'], position['qty'])
+        ->  :464  place_target_or_sl_order(position['symbolname'], position['qty'])
+    ->  :777  place_target_or_sl_order(position['symbolname'], position['qty'])
+
+424:  monitor_positions():
+    ->  :472  threading.Thread(target=monitor_positions, daemon=True).start()
+
+496:  check_buy_condition(x, token, z):
+    ->  :760  check_buy_condition(x, token, option_type)
+
+557:  check_tanget_slope_negative(x):
+    ->  :754  check_tanget_slope_negative(info["symbolname"])
+
+592:  unextract():
+    ->  :757  unextract() 
+
+641:  check_for_trigger_and_place_order():
+    ->  :738 threading.Thread(target=check_for_trigger_and_place_order, daemon=True).start()
+
+788:  send_file(file_path, chat_id, bot_token):
+    ->  :801
+
+800:  send_file_threaded(file_path, chat_id, bot_token):
+    ->  :807
+
+
+
+
+
+
+
+
+
+
