@@ -61,7 +61,7 @@
 324:  get_ce_pe_values(premium, option):
     ->  :474  :603  ce_strike=get_ce_pe_values(nearest_value,"CE")
     ->  :475  :604  pe_strike=get_ce_pe_values(nearest_value,"PE")
-    |=>  unextract():
+    |==>  unextract():
         ->  :603  get_ce_pe_values(nearest_value,"CE")
         ->  :604  get_ce_pe_values(nearest_value,"PE")
 
@@ -70,17 +70,17 @@
         ->  :372  df = get_time_series('NFO', token, 4, 1)
 
 368:  dt_update(stock):
-    |=>  check_buy_condition(x, token, z):
+    |==>  check_buy_condition(x, token, z):
         ->  :510 df1 = dt_update(x)
-    |=>  check_tanget_slope_negative(x):
+    |==>  check_tanget_slope_negative(x):
         ->  :565  df1 = dt_update(x)
 
 391:  place_buy_order(tradingsymbol, qty):
-    |=>  check_for_trigger_and_place_order():
+    |==>  check_for_trigger_and_place_order():
         ->  :707  order_response = place_buy_order(symbolname, 75)
 
 406:  place_target_or_sl_order(tradingsymbol, qty):
-    |=>  monitor_positions():
+    |==>  monitor_positions():
         ->  :449  place_target_or_sl_order(position['symbolname'], position['qty'])
         ->  :464  place_target_or_sl_order(position['symbolname'], position['qty'])
     ->  :777  place_target_or_sl_order(position['symbolname'], position['qty'])

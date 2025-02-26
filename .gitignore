@@ -2,3 +2,8 @@
 OneDrive/
 ShoonyaApi-py/
 5_6174678914418349323.py
+config.yaml
+api.py
+app/config.py
+app/users.csv
+main.py
